@@ -8,9 +8,6 @@ object Nav {
         data object Overview : Main
 
         @Serializable
-        data object Onboarding : Main
-
-        @Serializable
         data object DeviceManager : Main
 
         @Serializable

@@ -74,11 +74,7 @@ class MainActivity : Activity2() {
             }
         }
 
-        val startDestination: NavKey = if (generalSettings.isOnboardingDone.valueBlocking) {
-            Nav.Main.Overview
-        } else {
-            Nav.Main.Onboarding
-        }
+        val startDestination: NavKey = Nav.Main.Overview
 
         setContent {
             val themeState by generalSettings.themeState.collectAsStateWithLifecycle(initialValue = generalSettings.currentThemeState)
