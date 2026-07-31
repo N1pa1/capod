@@ -93,7 +93,7 @@ class WidgetConfigurationViewModel @Inject constructor(
     data class State(
         val profiles: List<DeviceProfile> = emptyList(),
         val selectedProfile: ProfileId? = null,
-        val isPro: Boolean = false,
+        val isPro: Boolean = true,
         val theme: WidgetTheme = WidgetTheme.DEFAULT,
         val activePreset: WidgetTheme.Preset? = WidgetTheme.Preset.MATERIAL_YOU,
         val isCustomMode: Boolean = false,

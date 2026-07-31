@@ -80,9 +80,7 @@ import eu.darken.capod.common.compose.systemBarsAndCutoutInsets
 import eu.darken.capod.pods.core.apple.PodModel
 import eu.darken.capod.profiles.core.DeviceProfile
 
-@OptIn(ExperimentalLayoutApi::class)
-@Composable
-fun WidgetConfigurationScreen(
+@OptIn(ExperimentalLayoutApi::class) @Composable fun WidgetConfigurationScreen(
     state: WidgetConfigurationViewModel.State,
     showAapRequiredHint: Boolean = false,
     onSelectProfile: (DeviceProfile) -> Unit,
@@ -372,14 +370,9 @@ fun WidgetConfigurationScreen(
                     Spacer(modifier = Modifier.width(8.dp))
                     Button(
                         onClick = onConfirm,
-                        enabled = if (state.isPro) state.canConfirm else true,
                     ) {
                         Text(
-                            text = if (state.isPro) {
-                                stringResource(android.R.string.ok)
-                            } else {
-                                stringResource(R.string.general_upgrade_action)
-                            }
+                            text = stringResource(android.R.string.ok)
                         )
                     }
                 }
@@ -388,8 +381,7 @@ fun WidgetConfigurationScreen(
     }
 }
 
-@Composable
-private fun ProfileSelectionItem(
+@Composable private fun ProfileSelectionItem(
     profile: DeviceProfile,
     isSelected: Boolean,
     onClick: () -> Unit,
@@ -464,8 +456,7 @@ private fun ProfileSelectionItem(
     }
 }
 
-@Composable
-private fun WidgetConfigPreview(
+@Composable private fun WidgetConfigPreview(
     theme: WidgetTheme,
     deviceLabel: String?,
     isAncWidget: Boolean,
@@ -495,8 +486,12 @@ private fun WidgetConfigPreview(
                             bgColor = WidgetRenderStateMapper.resolvedBgColor(context, theme),
                             textColor = WidgetRenderStateMapper.resolvedTextColor(context, theme),
                             iconColor = WidgetRenderStateMapper.resolvedIconColor(context, theme),
-                            activeColor = WidgetRenderStateMapper.resolveThemeColor(context, com.google.android.material.R.attr.colorSecondaryContainer),
-                            onActiveColor = WidgetRenderStateMapper.resolveThemeColor(context, com.google.android.material.R.attr.colorOnSecondaryContainer),
+                            activeColor = WidgetRenderStateMapper.resolveThemeColor(
+                                context, com.google.android.material.R.attr.colorSecondaryContainer
+                            ),
+                            onActiveColor = WidgetRenderStateMapper.resolveThemeColor(
+                                context, com.google.android.material.R.attr.colorOnSecondaryContainer
+                            ),
                             deviceLabel = deviceLabel,
                         )
                     }
@@ -524,9 +519,7 @@ private fun WidgetConfigPreview(
     }
 }
 
-@OptIn(ExperimentalLayoutApi::class)
-@Composable
-private fun PresetChips(
+@OptIn(ExperimentalLayoutApi::class) @Composable private fun PresetChips(
     activePreset: WidgetTheme.Preset?,
     isCustomMode: Boolean,
     onSelectPreset: (WidgetTheme.Preset) -> Unit,
@@ -601,9 +594,7 @@ private fun PresetChips(
     }
 }
 
-@OptIn(ExperimentalLayoutApi::class)
-@Composable
-private fun ColorSwatchGrid(
+@OptIn(ExperimentalLayoutApi::class) @Composable private fun ColorSwatchGrid(
     selectedColor: Int?,
     onColorSelected: (Int) -> Unit,
     modifier: Modifier = Modifier,
@@ -614,8 +605,8 @@ private fun ColorSwatchGrid(
         verticalArrangement = Arrangement.spacedBy(4.dp),
     ) {
         SWATCH_COLORS.forEach { color ->
-            val isSelected = selectedColor != null &&
-                    (selectedColor or 0xFF000000.toInt()) == (color or 0xFF000000.toInt())
+            val isSelected =
+                selectedColor != null && (selectedColor or 0xFF000000.toInt()) == (color or 0xFF000000.toInt())
 
             ColorSwatch(
                 color = color,
@@ -626,8 +617,7 @@ private fun ColorSwatchGrid(
     }
 }
 
-@Composable
-private fun ColorSwatch(
+@Composable private fun ColorSwatch(
     color: Int,
     isSelected: Boolean,
     onClick: () -> Unit,
@@ -694,8 +684,7 @@ private fun ColorSwatch(
     }
 }
 
-@Composable
-private fun HexColorInput(
+@Composable private fun HexColorInput(
     color: Int?,
     onColorChanged: (Int) -> Unit,
     modifier: Modifier = Modifier,
@@ -705,8 +694,7 @@ private fun HexColorInput(
     var textFieldValue by remember {
         mutableStateOf(
             TextFieldValue(
-                text = hexString,
-                selection = TextRange(hexString.length)
+                text = hexString, selection = TextRange(hexString.length)
             )
         )
     }
@@ -738,9 +726,7 @@ private fun HexColorInput(
     )
 }
 
-@Preview2
-@Composable
-private fun WidgetConfigurationScreenPreview() = PreviewWrapper {
+@Preview2 @Composable private fun WidgetConfigurationScreenPreview() = PreviewWrapper {
     val profiles = listOf(
         MockPodDataProvider.profile("My AirPods Pro", PodModel.AIRPODS_PRO2),
         MockPodDataProvider.profile("AirPods Max", PodModel.AIRPODS_MAX),
@@ -767,9 +753,7 @@ private fun WidgetConfigurationScreenPreview() = PreviewWrapper {
     )
 }
 
-@Preview2
-@Composable
-private fun WidgetConfigurationScreenCustomPreview() = PreviewWrapper {
+@Preview2 @Composable private fun WidgetConfigurationScreenCustomPreview() = PreviewWrapper {
     val profiles = listOf(
         MockPodDataProvider.profile("My AirPods Pro", PodModel.AIRPODS_PRO2),
     )
@@ -800,9 +784,7 @@ private fun WidgetConfigurationScreenCustomPreview() = PreviewWrapper {
     )
 }
 
-@Preview2
-@Composable
-private fun WidgetConfigurationScreenNonProPreview() = PreviewWrapper {
+@Preview2 @Composable private fun WidgetConfigurationScreenNonProPreview() = PreviewWrapper {
     val profiles = listOf(
         MockPodDataProvider.profile("My AirPods Pro", PodModel.AIRPODS_PRO2),
     )
@@ -810,7 +792,7 @@ private fun WidgetConfigurationScreenNonProPreview() = PreviewWrapper {
         state = WidgetConfigurationViewModel.State(
             profiles = profiles,
             selectedProfile = profiles.first().id,
-            isPro = false,
+            isPro = true,
             theme = WidgetTheme.DEFAULT,
             activePreset = WidgetTheme.Preset.MATERIAL_YOU,
             isCustomMode = false,

@@ -199,7 +199,7 @@ class DeviceSettingsViewModel @Inject constructor(
     data class State(
         val device: PodDevice?,
         val now: Instant = SystemTimeSource.now(),
-        val isPro: Boolean = false,
+        val isPro: Boolean = true,
         val isNudgeAvailable: Boolean = true,
         val isForceConnecting: Boolean = false,
         val isClassicallyConnected: Boolean = false,
