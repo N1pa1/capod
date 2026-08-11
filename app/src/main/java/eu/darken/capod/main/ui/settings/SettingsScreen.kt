@@ -47,12 +47,9 @@ fun SettingsScreenHost(vm: SettingsViewModel = hiltViewModel()) {
             onNavigateUp = { vm.navUp() },
             onGeneralSettings = { vm.navTo(Nav.Settings.General) },
             onDeviceManager = { vm.navTo(Nav.Main.DeviceManager) },
-            onUpgradeStatus = { vm.navTo(Nav.Main.Upgrade(manage = true)) },
             onSupport = { vm.navTo(Nav.Settings.Support) },
             onWiki = { vm.openUrl("https://github.com/d4rken-org/capod/wiki") },
             onChangelog = { vm.openUrl("https://capod.darken.eu/changelog") },
-            onHelpTranslate = { vm.openUrl("https://crowdin.com/project/capod") },
-            onAcknowledgements = { vm.navTo(Nav.Settings.Acknowledgements) },
             onPrivacyPolicy = { vm.openUrl(PrivacyPolicy.URL) },
             onSponsor = { url -> vm.openUrl(url) },
         )
@@ -65,12 +62,9 @@ fun SettingsScreen(
     onNavigateUp: () -> Unit,
     onGeneralSettings: () -> Unit,
     onDeviceManager: () -> Unit,
-    onUpgradeStatus: () -> Unit,
     onSupport: () -> Unit,
     onWiki: () -> Unit,
     onChangelog: () -> Unit,
-    onHelpTranslate: () -> Unit,
-    onAcknowledgements: () -> Unit,
     onPrivacyPolicy: () -> Unit,
     onSponsor: (String) -> Unit,
     modifier: Modifier = Modifier,
@@ -128,17 +122,6 @@ fun SettingsScreen(
                 SettingsCategoryHeader(text = stringResource(R.string.settings_category_other_label))
             }
             item {
-                // Always visible: owners need a way to check their Pro/supporter status, and
-                // non-owners get another path to the upgrade screen. The label/description
-                // resources are flavor-overridden (foss vs gplay values).
-                SettingsBaseItem(
-                    title = stringResource(R.string.settings_upgrade_status_label),
-                    subtitle = stringResource(R.string.settings_upgrade_status_description),
-                    icon = Icons.TwoTone.Stars,
-                    onClick = onUpgradeStatus,
-                )
-            }
-            item {
                 SettingsBaseItem(
                     title = stringResource(R.string.settings_support_label),
                     subtitle = stringResource(R.string.settings_support_description),
@@ -164,22 +147,6 @@ fun SettingsScreen(
             }
             item {
                 SettingsBaseItem(
-                    title = stringResource(R.string.help_translate_label),
-                    subtitle = stringResource(R.string.help_translate_description),
-                    icon = Icons.TwoTone.Translate,
-                    onClick = onHelpTranslate,
-                )
-            }
-            item {
-                SettingsBaseItem(
-                    title = stringResource(R.string.settings_acknowledgements_label),
-                    subtitle = stringResource(R.string.general_thank_you_label),
-                    icon = Icons.TwoTone.Favorite,
-                    onClick = onAcknowledgements,
-                )
-            }
-            item {
-                SettingsBaseItem(
                     title = stringResource(R.string.settings_privacy_policy_label),
                     subtitle = stringResource(R.string.settings_privacy_policy_desc),
                     icon = Icons.TwoTone.Book,
@@ -198,12 +165,9 @@ private fun SettingsScreenPreview() = PreviewWrapper {
         onNavigateUp = {},
         onGeneralSettings = {},
         onDeviceManager = {},
-        onUpgradeStatus = {},
         onSupport = {},
         onWiki = {},
         onChangelog = {},
-        onHelpTranslate = {},
-        onAcknowledgements = {},
         onPrivacyPolicy = {},
         onSponsor = {},
     )
